@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class MainActivity extends AppCompatActivity {
@@ -13,12 +15,11 @@ public class MainActivity extends AppCompatActivity {
     private ToggleButton killSwitch;
     private SwitchFunction switchu;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+        switchu = new SwitchFunction();
         wireWidgets();
         setListeners();
         updateGameDisplay();
@@ -35,8 +36,11 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b){
                     switchu.setAnnoyanceLevel(switchu.getAnnoyanceLevel()+500);
-                    if (switchu.getAnnoyanceLevel()>=5000){
-
+                    if (switchu.getAnnoyanceLevel()>= 5000){
+                        switchu.setAnnoyanceLevel(switchu.getAnnoyanceLevel()-499);
+                        if (switchu.getAnnoyanceLevel()%100>=4){
+                            useless.setVisibility(View.GONE);
+                        }
                     }
                     new CountDownTimer(5000-switchu.getAnnoyanceLevel(),100) {
                         @Override
@@ -62,11 +66,14 @@ public class MainActivity extends AppCompatActivity {
         killSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b){
+                Toast.makeText(MainActivity.this, switchu.message(switchu.getAnnoyanceLevel()), Toast.LENGTH_SHORT).show();
+                if (switchu.isKillActive()){
                     new CountDownTimer(5000, 100) {
                         @Override
                         public void onTick(long l) {
+                            if (!killSwitch.isChecked()){
 
+                            }
                         }
 
                         @Override
@@ -74,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                             finish();
 
                         }
-                    }
+                    };
                 }
 
             }
