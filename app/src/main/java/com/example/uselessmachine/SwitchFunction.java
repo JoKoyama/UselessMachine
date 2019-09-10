@@ -6,9 +6,27 @@ public class SwitchFunction {
     private int timesClicked;
     private int annoyanceLevel;
     private boolean killActive;
+    private int press;
+    private int bar = 1;
 
     public SwitchFunction(){
 
+    }
+    public String buttonKey(){
+        if(press>4){setPress(getPress()+1);return "good bye";}
+        else if(press>4){setPress(getPress()+1);return "I hope your happy with what you have done";}
+        else if(press>7){setPress(getPress()+1);return "I tried my best";}
+        else if(press>6){setPress(getPress()+1);return "well...";}
+        else if(press>5){setPress(getPress()+1);return "Loading Counter Measures...";}
+        else if(press>4){setPress(getPress()+1);return "Don't believe me?";}
+        else if(press>3){setPress(getPress()+1);return "I have power too you know";}
+        else if(press>2){setPress(getPress()+1);return "You know what";}
+        else if(press>1){setPress(getPress()+1); return "I thought we were friends...";}
+        else{setPress(getPress()+1); return "please stop";}
+    }
+
+    public int getPress() {
+        return press;
     }
 
     public String message(int annoyance){
@@ -49,5 +67,20 @@ public class SwitchFunction {
 
     public void setKillActive(boolean killActive) {
         this.killActive = killActive;
+    }
+
+    public void setPress(int press) {
+        this.press = press;
+    }
+
+    public int getBar() {
+        return bar;
+    }
+
+    public void setBar(int bar) {
+        this.bar = bar;
+    }
+    public String getBaar(int bar){
+        return "bar"+this.bar
     }
 }
